@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.onesmock"
+    android:installLocation="internalOnly"
+    >
+
+    <!--开机启动权限-->    <!--允许一个程序接收到 ACTION_BOOT_COMPLETED广播在系统完成启动-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--开机自启动-->
+    <!--//允许程序禁用键盘锁-->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <!--禁止home-->
+    <!--获取设备号权限-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--网络权限-->
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- if you want to load images from the internet quanxian -->
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!--屏幕长亮-->
+
+    <!--地理位置-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- 以下是使用wifi访问网络所需的权限 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 集成时请添加下列权限 -->
+    <!-- 测试完成后，您自己的appId 51 secretKey 请在 SynthActivity 和 MiniActivity 中修改 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+
+
+
+    <!--    android:configChanges="orientation|keyboardHidden|screenSize"
+              android:launchMode="singleInstance"     从下面加载activity
+              禁用硬件加速        android:hardwareAccelerated="false"
+
+只执行一次-->
+    <application
+        android:name=".activity.base.Application"
+        android:hardwareAccelerated="false"
+        android:allowBackup="true"
+        android:icon="@mipmap/lsj"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/lsj"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"
+        tools:replace="android:icon, android:theme"
+
+        android:configChanges="orientation|keyboardHidden|screenSize"
+
+        >
+
+
+        <!--广播信息 自启动开机 -->
+        <receiver android:name="com.onesmock.activity.BroadcastReceiver.BootBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            >
+            <intent-filter android:priority="1000"><!--//优先级-->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
+
+        <activity android:name=".activity.main.WelcomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"><!--欢迎页面信息-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+
+
+        <activity android:name="com.onesmock.activity.main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+
+        <!--顾客可以接触到的界面-->
+        <!--产品展示-->
+        <activity android:name="com.onesmock.activity.main.MainActivity_main"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            ></activity>
+        <!--管理管可以接触的管理界面-->
+        <activity android:name="com.onesmock.activity.main.MainActivity_main_systemCorrelation"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--设备检测-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.messageTest.messageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity><!-- 测试-->
+        <!--管理员列表-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.author.AuthorActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--销售信息-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.operationData.operationDataActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--设备号管理-->
+        <activity android:name=".activity.main.administratorInformation.operationManagement.operationManagementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--设备添加修改-->
+        <!--wifi设置-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.wifi.WifiConnectActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--wifi设置-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.wifi.wifiActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <activity android:name="com.onesmock.activity.main.administratorInformation.wifi.wifi2.WifiActivity2"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--网络地址设置-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.netAddress.internetInformationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--货架管理设置-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.shelvesManagement.shelvesManagementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--货架添加设置-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.shelvesManagement.shelvesManagementActivityAdd"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--货架修改设置-->
+        <activity android:name="com.onesmock.activity.main.administratorInformation.shelvesManagement.shelvesManagementActivityUpdate"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <!--厂家的信息设置-->
+        <activity android:name="com.onesmock.activity.main.manufactor.manufactorSetActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            ></activity>
+        <!--厂家的信息设置-->
+        <activity android:name="com.onesmock.activity.main.manufactor.manufactorSetActivityUpdate"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+
+
+    </application>
+
+
+</manifest>

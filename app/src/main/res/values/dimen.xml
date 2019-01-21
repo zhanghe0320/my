@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_normal_size">14dp</dimen>
+    <dimen name="text_large_size">18dp</dimen>
+    <dimen name="text_little_size">8dp</dimen>
+    <dimen name="text_middle_size">12dp</dimen>
+    
+    <dimen name="title_font_size">18dp</dimen>
+    
+    <dimen name="bottom_bar_font_size">10dp</dimen>
+    
+    <dimen name="subtitle_tab_padding">10dp</dimen>
+    <dimen name="subtitle_tab_drawable_padding">2.0dp</dimen>
+    
+    <dimen name="pop_tab_padding">10dp</dimen>
+	<dimen name="pop_tab_drawable_padding">5.0dp</dimen>
+    
+    <dimen name="bottom_tab_padding_up">5dp</dimen>
+    <dimen name="bottom_tab_padding_drawable">2.0dp</dimen>
+    <dimen name="bottom_tab_font_size">10dp</dimen>
+    
+    <dimen name="subhead_height">30dp</dimen>
+    <dimen name="edittext_font_size">14dp</dimen>
+    <dimen name="edittext_width">156dp</dimen>
+    <dimen name="edittext_height">23dp</dimen>
+    
+    <dimen name="view_interval_space_small">5dp</dimen>
+    <dimen name="view_interval_space_middle">12dp</dimen>
+    <dimen name="view_interval_space_large">20dp</dimen>
+    
+</resources>

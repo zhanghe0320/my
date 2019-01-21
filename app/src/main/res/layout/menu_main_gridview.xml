@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"   
+    android:paddingBottom="4dip"
+    android:paddingTop="4dp"
+    android:layout_width="fill_parent">
+    <!--  注:如果使用的图片高度高于Gridview设置的android:columnWidth="90dp" 请更改这里的值 -->  
+<!--    <ImageView
+    android:layout_height="100dp"
+    android:layout_width="100dp"
+    android:layout_centerHorizontal="true"  
+    android:id="@+id/menu_main_gridview_menuImage" />  
+	<TextView   
+ 	android:layout_width="wrap_content"  
+    android:layout_height="wrap_content"   
+    android:layout_below="@id/menu_main_gridview_menuImage"  
+    android:layout_centerHorizontal="true" 
+    android:layout_marginTop="10dp"  
+    android:id="@+id/menu_main_gridview_menuText"
+    android:textColor="#000"
+    /> -->
+
+    <ImageView
+        android:layout_height="90dp"
+        android:layout_width="90dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/menu_main_gridview_menuImage" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu_main_gridview_menuImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/menu_main_gridview_menuText"
+        android:textColor="#000"/>
+</RelativeLayout>

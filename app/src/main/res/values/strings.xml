@@ -1,0 +1,64 @@
+<resources>
+
+
+    <!--标题信息-->
+    <string name="app_name">龙视捷尝尝体验系统</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <!--错误信息-->
+    <string name="error_configuration">Please configure your serial port first.</string>
+    <string name="error_security">You do not have read/write permission to the serial port.</string>
+    <string name="error_unknown">The serial port can not be opened for an unknown reason.</string>
+    <!--系统操作-->
+    <string name="strTitle1">输入密码</string>
+    <string name="btnpwdOk">确认</string>
+    <string name="btnpwdNO">取消</string>
+    <string name="btn1">系统设置</string>
+    <string name="app_verName">1.0</string>
+
+    <string name="input_hint">请输入信息....</string>
+
+    <color name="White">#ffffff</color>
+
+    <!--MainActivity_main_systemCorrelation -->
+    <string name="MainActivity_main_systemCorrelation">系统设置</string>
+    <string name="operationManagementActivity">产品更新/添加</string>
+    <string name="operationDataActivity">产品销售统计</string>
+    <string name="shelvesManagementActivity">货架管理/添加</string>
+    <string name="authorActivity">管理员信息</string>
+    <string name="internetInformationActivity">平台地址</string>
+    <string name="wifiActivity">wifi设置</string>
+    <string name="testActivity">设备系统测试</string>
+    <string name="back">返回</string>
+
+
+    <!-- manufactory-->
+    <string name="manufactorSetActivity">厂家设置</string>
+    <string name="selectEquipment">选择货架</string>
+    <string name="selectMessage">选择指令</string>
+    <string name="sendMessage">发送指令</string>
+    <!-- shelvesmanagement-->
+    <string name="addSheves">添加设备</string>
+    <string name="shelvesNum">设备编号</string>
+
+
+    <!-- internetinfofromation-->
+    <string name="save">保存</string>
+    <!-- wifi-->
+    <string name="wifi_ssid">WIFI-SSID:</string>
+    <string name="wifi_pwd">WIFI密码:</string>
+    <string name="wifi_link">连接WIFI:</string>
+    <string name="wifi_close">关闭WIFI</string>
+    <string name="wifi_open">打开WIFI:</string>
+
+
+    <string name="bell_tips">请长按设置按钮5秒钟，听到语音提示后点击下一步进行操作！</string>
+    <string name="device_id">设备ID:</string>
+    <string name="next">下一步</string>
+    <string name="sure">确定</string>
+    <string name="input_pwd_hint">请输入密码</string>
+    <string name="wait_moment">操作进行中，请稍后</string>
+
+
+</resources>

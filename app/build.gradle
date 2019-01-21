@@ -1,0 +1,134 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'org.greenrobot.greendao'//添加数据库必须
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.onesmock"
+        minSdkVersion 19
+        //targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+        multiDexEnabled true
+    }
+
+    //greendao配置
+   /* greendao {
+        //数据库版本号，升级时修改
+        schemaVersion 1
+        //生成的DAO，DaoMaster和DaoSession的包路径。默认与表实体所在的包路径相同
+        daoPackage 'com.onesmock.dao'
+        //生成源文件的路径。默认源文件目录是在build目录中的(build/generated/source/greendao)
+        targetGenDir 'src/main/java'
+    }*/
+
+    buildTypes {
+        release {
+            //代码混淆   开启   minifyEnabled true  关闭minifyEnabled false
+             zipAlignEnabled true  //打包的时候设置为true  能优化我们的java字节码，提高运行效率
+//             shinkResources true//资源压缩
+             useProguard true//代码压缩
+          //  zipAlignEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    aaptOptions{
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
+
+    //添加如下配置就ok了
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+
+
+
+}
+
+dependencies {
+
+    implementation fileTree(exclude: '*.bak', dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    /*    implementation 'com.android.support:design:27.1.1'    */
+    implementation 'com.jude:rollviewpager:1.2.9'
+    implementation 'com.dalong:marqueeview:1.0.0'
+    //添加依赖网络请求
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp3:mockwebserver:3.8.1'
+    implementation 'com.squareup.okio:okio:1.11.0'
+    implementation 'org.java-websocket:Java-WebSocket:1.3.0'
+    implementation 'com.neovisionaries:nv-websocket-client:2.2'
+    implementation 'org.greenrobot:greendao:3.2.0'
+
+    //XMPP相关
+    implementation 'com.android.support:support-v4:19.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'org.igniterealtime.smack:smack-android:4.1.4'
+    implementation 'org.igniterealtime.smack:smack-tcp:4.1.4'
+    implementation 'org.igniterealtime.smack:smack-im:4.1.4'
+    implementation 'org.igniterealtime.smack:smack-extensions:4.1.4'
+    implementation project(':commonLib')
+    implementation files('libs/httpcore-4.3.2.jar')
+    implementation files('libs/SmartAndroid2.0.jar')
+
+    //图片轮播
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.facebook.fresco:fresco:0.12.0'
+    implementation 'com.zxy.android:recovery:0.0.8'
+
+    //最新版本
+    implementation project(':library')
+    //队列任务处理  用于下发到串口的信息处理
+    // implementation 'com.birbit:android-priority-jobqueue:2.0.1'
+    //implementation 'com.github.arcadefire:nice-spinner:1.3.4'
+    //提示框的框架
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    implementation 'io.reactivex:rxandroid:1.1.0'
+    implementation 'io.reactivex:rxjava:1.1.0'
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.daimajia.numberprogressbar:library:1.2@aar'
+    implementation 'com.jude:easyrecyclerview:4.2.6'
+    //队列任务
+    implementation 'com.birbit:android-priority-jobqueue:2.0.1'
+    implementation files('libs/com.baidu.tts_2.3.2.20180713_6101c2a.jar')//百度语音
+    //greendao数据库操作
+    // implementation 'org.greenrobot:greendao-gradle-plugin:3.2.0'
+    //图片缓存
+    implementation  'com.github.bumptech.glide:glide:4.0.0'//用于视频图片缓存
+    //内存泄漏
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.3'
+    // releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    implementation 'com.android.support:recyclerview-v7:24.1.1'
+
+
+
+    //最新版本
+    implementation 'com.facebook.network.connectionclass:connectionclass:1.0.1'//连接
+    implementation 'com.danikula:videocache:2.7.0'//用于视频缓存加载
+}
