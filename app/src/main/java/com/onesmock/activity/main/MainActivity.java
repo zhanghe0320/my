@@ -242,21 +242,7 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
 
                     if(BaseActivity.isNetworkAvailable(MainActivity.this)){
 
-                        new Timer().schedule(new TimerTask() {
-                            //
-                            @Override
-                            public void run() {
 
-                                if(/*BaseActivity.isNetworkAvailable(MainActivity.this)&&*/initBaisuTTs){
-
-                                    Log.i(TAG, "run: 不需要初始化网络信息");
-                                }else{
-                                    MainActivity.initTTs();
-                                    Log.i(TAG, "run: 判断网络，延迟初始化语音信息");
-                                }
-
-                            }
-                        },  10*1000);
                     }else{
                         Log.i(TAG, "run: 没有网络，无法初始化语音信息！");
                     }
@@ -265,6 +251,21 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
             }, 10 * 1000, 30 * 1000);
             isAddFriend = true;
         }
+        new Timer().schedule(new TimerTask() {
+            //
+            @Override
+            public void run() {
+
+                if(/*BaseActivity.isNetworkAvailable(MainActivity.this)&&*/initBaisuTTs){
+
+                    Log.i(TAG, "run: 不需要初始化网络信息");
+                }else{
+                    MainActivity.initTTs();
+                    Log.i(TAG, "run: 判断网络，延迟初始化语音信息");
+                }
+
+            }
+        },  10*1000);
 
 
         File f = new File( xmppConnect.FILE_PATH +"/app.JEPG");

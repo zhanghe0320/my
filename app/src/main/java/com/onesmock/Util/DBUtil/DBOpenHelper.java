@@ -268,7 +268,7 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
             Log.i(TAG + "插入数据2", "");
             sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('本机编号','020000000000000001','020000000000000001','')");
             sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('超级密码','888888','020000000000000001','')");
-            sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('网络地址','www.nj-lsj.com','020000000000000001','')");
+            sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('网络地址','www.xxxx.com','020000000000000001','')");
             sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('wifi','wifi设置','020000000000000001','')");
 
             Log.i(TAG + "插入数据3", "");

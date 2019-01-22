@@ -21,6 +21,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.onesmock.Util.FileUtils;
+import com.onesmock.Util.dialog.ConfirmDialog;
+import com.onesmock.activity.main.administratorInformation.netAddress.internetInformationActivity;
 import com.onesmock.activity.messNetXmppSerialport.xmppConnect;
 import com.onesmock.activity.CountTimer.BackMain;
 import com.onesmock.activity.base.AppManager;
@@ -29,6 +32,7 @@ import com.onesmock.activity.base.BaseActivityO;
 import com.onesmock.activity.main.MainActivity_main_systemCorrelation;
 import com.onesmock.activity.messNetXmppSerialport.NetMessFromPhp;
 import com.onesmock.dao.SystemValues.SystemValues;
+import com.onesmock.dao.SystemValues.SystemValuesDao;
 import com.onesmock.dao.equipment.Equipment;
 import com.onesmock.dao.product.Product;
 import com.onesmock.Util.ByteDate.byteUtil;
@@ -459,17 +463,12 @@ public class operationManagementActivity  extends BaseActivityO {
 
                      }else {
                          product.getPrematchProductname().equals(product.getProductName());
-                         AlertDialog MyDialog = new AlertDialog.Builder(operationManagementActivity.this).create();//创建对话框
 
-
-                         AlertDialog.Builder builder = new AlertDialog.Builder(operationManagementActivity.this, AlertDialog.THEME_HOLO_LIGHT);
-                         builder.setTitle("更新产品信息");
-                         builder.setMessage("确定更新设备产品吗?修改后不可恢复！");
-
-                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                         ConfirmDialog confirmDialog = new ConfirmDialog(context, "确定修改吗?修改后不可恢复！?", "确认", "取消");
+                         confirmDialog.show();
+                         confirmDialog.setClicklistener(new ConfirmDialog.ClickListenerInterface() {
                              @Override
-                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                             public void doConfirm() {
                                  // int product_total= 1000+product.getProductDaysum();
                                  Log.i("设备", product.getEquipmentbase());
 
@@ -547,7 +546,7 @@ public class operationManagementActivity  extends BaseActivityO {
 
                                      }
                                  });
-                              //   NetMessFromPhp.getAllMessFromPhp(context);//更新数据
+                                 //   NetMessFromPhp.getAllMessFromPhp(context);//更新数据
 
                                  NetMessFromPhp.getJavaAll(context);//java
 
@@ -555,21 +554,25 @@ public class operationManagementActivity  extends BaseActivityO {
 
                                  openActivity(MainActivity_main_systemCorrelation.class);
                                  AppManager.getInstance().killActivity(operationManagementActivity.class);
-                                 dialog.dismiss();
+
                              }
-                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
                              @Override
-                             public void onClick(DialogInterface dialogInterface, int i) {
+                             public void doCancel() {
+                                 // TODO Auto-generated method stub
                                  productList= productDao.dbQueryAll();
                                  openActivity(MainActivity_main_systemCorrelation.class);
                                  AppManager.getInstance().killActivity(operationManagementActivity.class);
-                                 dialog.dismiss();
+                                 confirmDialog.dismiss();
                              }
                          });
 
 
-                         dialog = builder.create();
-                         dialog.show();
+
+
+
+
+
                      }
 
                     }
