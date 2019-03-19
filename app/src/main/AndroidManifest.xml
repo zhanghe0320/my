@@ -155,6 +155,9 @@
         <activity android:name="com.onesmock.activity.main.manufactor.manufactorSetActivityUpdate"
             android:configChanges="orientation|keyboardHidden|screenSize"></activity>
 
+        <!--厂家的信息设置-->
+        <activity android:name="com.onesmock.activity.main.showProductActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
 
     </application>
 

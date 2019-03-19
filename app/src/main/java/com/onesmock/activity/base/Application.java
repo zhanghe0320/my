@@ -184,7 +184,7 @@ public class Application extends MultiDexApplication {
         valueSystemDao = new SystemValuesDao(this);
         if (mSerialPort == null) {
             /* Read serial port parameters */
-            SharedPreferences sp = getSharedPreferences("android.serialport.sample_preferences", MODE_PRIVATE);
+          //  SharedPreferences sp = getSharedPreferences("android.serialport.sample_preferences", MODE_PRIVATE);
             String path = valueSystemDao.dbQueryOneByName(ConstantValue.serialPort).getValue();//"/dev/ttyS0";// sp.getString("DEVICE", "");
 
             int baud_rate = Integer.decode("9600");

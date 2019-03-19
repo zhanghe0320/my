@@ -2,6 +2,7 @@ package com.onesmock.activity.messNetXmppSerialport;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -24,7 +25,6 @@ import com.onesmock.dao.equipment.EquipmentDao;
 import com.onesmock.dao.messfromPHP.MessFromPHP;
 import com.onesmock.xmpp.MyXMPPTCPConnection;
 
-import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
@@ -199,36 +199,40 @@ public class xmppConnect  {
 
     //添加好友
     public  static boolean addFriend(XMPPTCPConnection con, String friendName, String name) {
-        Roster roster = Roster.getInstanceFor(con);
-        //修改服务器主机地址的JID主机名部分
-        try {
-            roster.createEntry(friendName.trim() + "@" + con.getServiceName(), name, new String[]{"Friends"});
-            MyXMPPTCPConnection.IsOnline = true;
-            Message msg = Message.obtain();
-            msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
-            msg.obj = "添加好友成功";
-            Log.i(TAG, "addFriend: 添加好友成功");
+        if(null == con){
 
 
-            File f = new File( xmppConnect.FILE_PATH +"/app.JEPG");
-            //二维码信息
-            if(f.exists()){
+        }else {
+            Roster roster = Roster.getInstanceFor(con);
+            //修改服务器主机地址的JID主机名部分
+            try {
+                roster.createEntry(friendName.trim() + "@" + con.getServiceName(), name, new String[]{"Friends"});
+                MyXMPPTCPConnection.IsOnline = true;
+                Message msg = Message.obtain();
+                msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
+                msg.obj = "添加好友成功";
+                Log.i(TAG, "addFriend: 添加好友成功");
 
-                //获取本地二维码信息
-                ConstantValue.bitmapTwoDimensionalCode  = xmppConnect.getBitmapFromLocal("app.JEPG");
-                Message message = Message.obtain();
-                message.what = ConstantValue.GetBitmapTwoDimensionalCode;
-                message.obj = ConstantValue.bitmapTwoDimensionalCode;
-                MainActivity.handlerImg.sendMessage(message);
-            }else{
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainActivity.getTwoDimensionalCode();
 
-                    }
-                }).start();
-            }
+                File f = new File( xmppConnect.FILE_PATH +"/app.JEPG");
+                //二维码信息
+                if(f.exists()){
+
+                    //获取本地二维码信息
+                    ConstantValue.bitmapTwoDimensionalCode  = xmppConnect.getBitmapFromLocal("app.JEPG");
+                    Message message = Message.obtain();
+                    message.what = ConstantValue.GetBitmapTwoDimensionalCode;
+                    message.obj = ConstantValue.bitmapTwoDimensionalCode;
+                    MainActivity.handlerImg.sendMessage(message);
+                }else{
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            MainActivity.getTwoDimensionalCode();
+
+                        }
+                    }).start();
+                }
          /*   if(null == ConstantValue.bitmapTwoDimensionalCode){
                 new Thread(new Runnable() {
                     @Override
@@ -251,48 +255,51 @@ public class xmppConnect  {
                 Log.i(TAG, "addFriend: 正在鉴权");
 
             }*/
-            xmppConnect.handlerHost_to_Base.sendMessage(msg);
-        } catch (SmackException.NotLoggedInException e) {
-            MyXMPPTCPConnection.IsOnline = false;
-            Message msg = Message.obtain();
-            msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
-            msg.obj = "添加好友失败,好友不存在";
-            xmppConnect.handlerHost_to_Base.sendMessage(msg);
-            MyXMPPTCPConnection.IsOnline = false;
-            Log.i(TAG, "addFriend: 添加好友失败,好友不存在");
-            e.printStackTrace();
-            return false;
-        } catch (SmackException.NoResponseException e) {
-            MyXMPPTCPConnection.IsOnline = false;
-            Message msg = Message.obtain();
-            msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
-            msg.obj = "添加好友失败,对方没回复";
-            Log.i(TAG, "addFriend: 添加好友失败,对方没回复");
-            xmppConnect.handlerHost_to_Base.sendMessage(msg);
-            MyXMPPTCPConnection.IsOnline = false;
-            e.printStackTrace();
-            return false;
-        } catch (XMPPException.XMPPErrorException e) {
-            MyXMPPTCPConnection.IsOnline = false;
-            Message msg = Message.obtain();
-            msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
-            msg.obj = "添加好友失败，协议不对";
-            xmppConnect.handlerHost_to_Base.sendMessage(msg);
-            e.printStackTrace();
-            Log.i(TAG, "addFriend: 添加好友失败，协议不对"+ msg);
-            MyXMPPTCPConnection.IsOnline = false;
-            return false;
-        } catch (SmackException.NotConnectedException e) {
-            MyXMPPTCPConnection.IsOnline = false;
-            Message msg = Message.obtain();
-            msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
-            msg.obj = "添加好友失败，通信异常";
-            xmppConnect.handlerHost_to_Base.sendMessage(msg);
-            e.printStackTrace();
-            Log.i(TAG, "addFriend: 添加好友失败，通信异常"+ msg);
-            MyXMPPTCPConnection.IsOnline = false;
-            return false;
+                xmppConnect.handlerHost_to_Base.sendMessage(msg);
+            } catch (SmackException.NotLoggedInException e) {
+                MyXMPPTCPConnection.IsOnline = false;
+                Message msg = Message.obtain();
+                msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
+                msg.obj = "添加好友失败,好友不存在";
+                xmppConnect.handlerHost_to_Base.sendMessage(msg);
+                MyXMPPTCPConnection.IsOnline = false;
+                Log.i(TAG, "addFriend: 添加好友失败,好友不存在");
+                e.printStackTrace();
+                return false;
+            } catch (SmackException.NoResponseException e) {
+                MyXMPPTCPConnection.IsOnline = false;
+                Message msg = Message.obtain();
+                msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
+                msg.obj = "添加好友失败,对方没回复";
+                Log.i(TAG, "addFriend: 添加好友失败,对方没回复");
+                xmppConnect.handlerHost_to_Base.sendMessage(msg);
+                MyXMPPTCPConnection.IsOnline = false;
+                e.printStackTrace();
+                return false;
+            } catch (XMPPException.XMPPErrorException e) {
+                MyXMPPTCPConnection.IsOnline = false;
+                Message msg = Message.obtain();
+                msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
+                msg.obj = "添加好友失败，协议不对";
+                xmppConnect.handlerHost_to_Base.sendMessage(msg);
+                e.printStackTrace();
+                Log.i(TAG, "addFriend: 添加好友失败，协议不对"+ msg);
+                MyXMPPTCPConnection.IsOnline = false;
+                return false;
+            } catch (SmackException.NotConnectedException e) {
+                MyXMPPTCPConnection.IsOnline = false;
+                Message msg = Message.obtain();
+                msg.what = ConstantValue.XMPP_MSG_RETURN_INFO;
+                msg.obj = "添加好友失败，通信异常";
+                xmppConnect.handlerHost_to_Base.sendMessage(msg);
+                e.printStackTrace();
+                Log.i(TAG, "addFriend: 添加好友失败，通信异常"+ msg);
+                MyXMPPTCPConnection.IsOnline = false;
+                return false;
+            }
+            return true;
         }
+
         return true;
     }
 
@@ -699,7 +706,14 @@ public class xmppConnect  {
                             //taskQueue = xmppConnect.getAsyncTask();
                             taskQueue.addTask(task);
 
+                            messFrom.getMessage();
+                            if(messFrom.getMessage().equals(ConstantValue.openTheDoor)
+                                    ||messFrom.getMessage().equals(ConstantValue.closeTheDoor)
+                                    ||messFrom.getMessage().equals(ConstantValue.ShipmentsAuthor)){
 
+                            }else {
+                                MainActivity.toNewAdv(messFrom.getEquipment_base());
+                            }
 
                         }
 
@@ -814,14 +828,16 @@ public class xmppConnect  {
                     xmppConnect.handlerHost_to_Base.sendMessage(msg);//登陆成功 调用线程，接收数据
                     InitListen();
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
 
-                        }
-                    });
+                    //初始化百度语音 initTTs();
+                    if(/*BaseActivity.isNetworkAvailable(MainActivity.this)&&*/BaseActivity.initBaisuTTs){
 
-                    MainActivity.initTTs();//初始化百度语音 initTTs();
+                        Log.i(TAG, "run: 不需要初始化网络信息");
+                    }else{
+                        MainActivity.initTTs();
+                        Log.i(TAG, "run: 判断网络，延迟初始化语音信息");
+                    }
+
 
 
 /*
@@ -1017,7 +1033,5 @@ public class xmppConnect  {
         }
         return null;
     }
-
-
 
 }

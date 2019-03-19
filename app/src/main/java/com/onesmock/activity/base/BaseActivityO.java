@@ -39,6 +39,8 @@ import com.onesmock.dao.equipment.Equipment;
 import com.onesmock.dao.equipment.EquipmentDao;
 import com.onesmock.dao.product.Product;
 import com.onesmock.dao.product.ProductDao;
+import com.onesmock.dao.product.ProductMess;
+import com.onesmock.dao.product.ProductMessDao;
 import com.onesmock.dao.video.Video;
 import com.onesmock.dao.video.VideoDao;
 
@@ -70,6 +72,7 @@ public class BaseActivityO extends Activity {
     public static BackMain backMain;
     public static AdvertisementDao advertisementDao;
     public static VideoDao videoDao;
+    public static ProductMessDao productMessDao;
 
     public static SystemValues systemValues;
     public static Equipment equipment;
@@ -79,6 +82,7 @@ public class BaseActivityO extends Activity {
     public static TextView view;
     public static Advertisement advertisement;
     public static Video video;
+    public static ProductMess productMess;
     /**
      * 网络连接 okhttp相关
      *
@@ -122,6 +126,7 @@ public class BaseActivityO extends Activity {
         productDao = new ProductDao(context);
         advertisementDao = new AdvertisementDao(context);
         videoDao = new VideoDao(context);
+        productMessDao = new ProductMessDao(context);
 
 
 
@@ -131,7 +136,7 @@ public class BaseActivityO extends Activity {
         author = new Author();
         advertisement = new Advertisement();
         video = new Video();
-
+        productMess = new ProductMess();
 
         //获取本机器的相关信息
         //每次开启新的activity都会获取 进行存储放入数据库

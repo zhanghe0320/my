@@ -169,7 +169,7 @@ public class manufactorSetActivityUpdate  extends BaseActivityO {
                     FileUtils.DeleteFolder(xmppConnect.FILE_PATH);//删除二维码
                     // xmppConnect.disconnectAccount();
                     //  xmppConnect.disconnectAccount();
-                    xmppConnect.xmppLogin(editText.getText().toString());
+                    //xmppConnect.xmppLogin(editText.getText().toString());
 
                     openActivity(manufactorSetActivity.class);
                     AppManager.getInstance().killActivity(manufactorSetActivityUpdate.class);
@@ -185,7 +185,7 @@ public class manufactorSetActivityUpdate  extends BaseActivityO {
                     FileUtils.DeleteFolder(xmppConnect.FILE_PATH);//删除二维码
                     // xmppConnect.disconnectAccount();
                     //  xmppConnect.disconnectAccount();
-                    xmppConnect.xmppLogin(editText.getText().toString());
+                    //xmppConnect.xmppLogin(editText.getText().toString());
 
 
                     openActivity(manufactorSetActivity.class);

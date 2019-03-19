@@ -299,6 +299,7 @@ public class MainActivity_main extends BaseActivityO /*implements View.OnClickLi
                                             Message msg = Message.obtain();
                                             msg.what = ConstantValue.GetBitmapTwoDimensionalCode99;
                                             msg.obj = "密码错误！请核对密码后重新输入！";
+                                          //  showToastView("密码错误！请核对密码后重新输入！");
                                             mHandler.sendMessage(msg);
                                             //handler.sendMessage(msg);
                                             alertDialog.dismiss();

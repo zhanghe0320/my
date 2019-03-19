@@ -37,7 +37,7 @@ public class ProductDao {
     }
 
 
-    // 插入产品数据   正在使用中
+    // 更新产品数据
     public void dbUpdateOldToNew(String productName,String equipmenthost, String equipmentbase) {
        // sqliteDatabase = dbOpenHelper.getWritableDatabase();// 以读写方法打开数据库，不仅仅是写，getReadableDatabase()是只读
         Long time=  System.currentTimeMillis();//CreatedTime =?
@@ -100,14 +100,14 @@ public class ProductDao {
     }
 
     // 修改 现在拥有的产品信息
-    public void dbUpdateProductNow(String  equipmentbase,String  equipmenthost,String  imgUrl,String product_name ) {
-      //  sqliteDatabase = dbOpenHelper.getWritableDatabase();
+    public void dbUpdateProductNow(String  equipmentbase,String  equipmenthost,String  imgUrl,String product_name,String productMess ) {
+      //  sqliteDatabase = dbOpenHelper.getWritableDatabase();productMess
         //String sql = "update t_product set product_name= ?,CreatedTime=? where product_EquipmentName=?";
         Long time=  System.currentTimeMillis();
-        String sql = "update t_product set imgUrl=? ,product_name=? where equipmentbase=? and equipmenthost =?";
+        String sql = "update t_product set imgUrl=? ,product_name=? ,productMess = ? where equipmentbase=? and equipmenthost =?";
 
         Log.i(TAG,"现有产品的修改："+sql+"产品名字"+imgUrl+"设备名字"+product_name+"时间");
-        Object bindArgs[] = new Object[] { imgUrl,product_name,equipmentbase.toLowerCase(),equipmenthost.toLowerCase()};
+        Object bindArgs[] = new Object[] { imgUrl,product_name,productMess,equipmentbase.toLowerCase(),equipmenthost.toLowerCase()};
         dbOpenHelper.getWritableDatabase().execSQL(sql,bindArgs);
 
     }
@@ -240,6 +240,10 @@ public class ProductDao {
 
                 product.setPrematchImgurl(cursor.getString(cursor.getColumnIndex("prematchImgurl")));
                 product.setPrematchProductname(cursor.getString(cursor.getColumnIndex("prematchProductname")));
+
+                product.setProductMess(cursor.getString(cursor.getColumnIndex("productMess")));
+
+
                 productArrayList.add(product);
             }
 
@@ -292,6 +296,49 @@ public class ProductDao {
         }*/
         return Imgurl;
     }
+
+
+
+
+
+    // 获取某一个的产品详情
+    public ArrayList dbQueryProductMess(String  equipmentbase) {
+        ArrayList<String> Imgurl = new ArrayList<String>();
+        //  sqliteDatabase = dbOpenHelper.getWritableDatabase();
+        String sql = "select * from t_product   where equipmentbase =?'' ";
+
+        String bindArgs[] = new String[] { equipmentbase};
+
+        Cursor cursor = null;
+
+        try {
+            cursor = dbOpenHelper.getWritableDatabase().rawQuery(sql,null );
+
+            // 游标从头读到尾
+            for (cursor.moveToFirst(); !(cursor.isAfterLast()); cursor.moveToNext()) {
+                Imgurl.add(cursor.getString(cursor.getColumnIndex("imgUrl")));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        Log.i(TAG,"查询所有图片："+sql);
+
+
+      /*  String [] s =new String[Imgurl.size()];
+        for(int i=0;i<Imgurl.size();i++){
+            s[i]=Imgurl.get(i);
+        }*/
+        return Imgurl;
+    }
+
+
+
 
     // 查询所有的产品  使用中  查询所有产品名字
     public ArrayList dbQueryAllProductname() {
@@ -384,6 +431,9 @@ public class ProductDao {
 
                 product.setPrematchImgurl(cursor.getString(cursor.getColumnIndex("prematchImgurl")));
                 product.setPrematchProductname(cursor.getString(cursor.getColumnIndex("prematchProductname")));
+
+                product.setProductMess(cursor.getString(cursor.getColumnIndex("productMess")));
+
                 return  product;
             }
         } catch (Exception e) {

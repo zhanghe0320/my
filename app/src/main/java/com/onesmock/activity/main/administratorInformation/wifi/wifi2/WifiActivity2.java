@@ -40,7 +40,7 @@ import com.onesmock.activity.main.administratorInformation.wifi.wifi2.utils.Coll
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.onesmock.R;
+
 
 public class WifiActivity2 extends BaseActivityO {
 
@@ -149,6 +149,7 @@ public class WifiActivity2 extends BaseActivityO {
         pbWifiLoading = (ProgressBar) this.findViewById(R.id.pb_wifi_loading);
 
         hidingProgressBar();
+
         mHasPermission = checkPermission();
         if (!mHasPermission && WifiSupport.isOpenWifi(WifiActivity2.this)) {  //未获取权限，申请权限
             requestPermission();

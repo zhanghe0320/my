@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#2f7d67">
 
     <!--android:background="@mipmap/systemset1"-->
 
@@ -15,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal"
+        android:background="#2f7d67"></LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -24,7 +26,8 @@
         android:gravity="center"
         android:text="@string/shelvesManagementActivity"
         android:textColor="#000000"
-        android:textSize="@dimen/title_text_size" />
+        android:textSize="@dimen/title_text_size"
+        android:background="#2f7d67"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +35,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3"
-        tools:ignore="UselessLeaf">
+        tools:ignore="UselessLeaf"
+        android:background="#2f7d67">
 
     </LinearLayout>
 
@@ -40,14 +44,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal"
+        android:background="#2f7d67"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:background="#2f7d67">
 
         <TextView
             android:id="@+id/factory_update_equipmentName"
@@ -57,7 +63,8 @@
             android:gravity="center"
             android:text=""
             android:textColor="#000000"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:background="#2f7d67"/>
 
         <EditText
             android:id="@+id/factory_update_equipmentnum"
@@ -80,7 +87,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:background="#2f7d67">
 
         <TextView
             android:layout_width="0dp"
@@ -89,7 +97,8 @@
             android:gravity="center"
             android:text="产品名"
             android:textColor="#000000"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:background="#2f7d67"/>
 
         <EditText
             android:id="@+id/factory_product_equipmentName"
@@ -111,14 +120,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal"
+        android:background="#2f7d67"></LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:background="#2f7d67">
 
         <Button
             android:id="@+id/factory_update_equipmentsave"

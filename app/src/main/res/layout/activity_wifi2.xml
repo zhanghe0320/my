@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#2f7d67">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#2f7d67">
 
     </LinearLayout>
 
@@ -17,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#2f7d67">
 
         <Button
             android:id="@+id/btn2"
@@ -46,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/White">
+        android:background="#2f7d67">
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,7 +61,8 @@
             android:layout_marginBottom="9dp"
             android:text="WiFi列表"
             android:textSize="30sp"
-            android:textColor="@color/blue" />
+            android:textColor="@color/black"
+            android:background="#2f7d67"/>
 
         <ProgressBar
             android:id="@+id/pb_wifi_loading"
@@ -67,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="12dp" />
+            android:layout_marginRight="12dp"
+            />
 
     </RelativeLayout>
 
@@ -75,7 +80,8 @@
         android:id="@+id/recy_list_wifi"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_weight="5"
+        android:background="#2f7d67">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -84,7 +90,8 @@
         android:layout_height="25dp"
         android:layout_gravity="center_vertical|center"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#2f7d67">
 
         <Button
             android:id="@+id/wifi_back_systembase"

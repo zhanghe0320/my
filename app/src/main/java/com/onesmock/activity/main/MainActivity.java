@@ -29,9 +29,12 @@ import com.onesmock.Util.FileUtils;
 import com.onesmock.Util.banner.Banner;
 import com.onesmock.Util.voiceSpeak.control.InitConfig;
 import com.onesmock.Util.voiceSpeak.listener.UiMessageListener;
+import com.onesmock.Util.voiceSpeak.util.AutoCheck;
 import com.onesmock.activity.base.AppManager;
 import com.onesmock.activity.base.Application;
 import com.onesmock.activity.base.BaseActivity;
+import com.onesmock.activity.main.administratorInformation.messageTest.messageActivity;
+import com.onesmock.activity.messNetXmppSerialport.NetMessFromPhp;
 import com.onesmock.activity.messNetXmppSerialport.xmppConnect;
 import com.onesmock.dao.SystemValues.SystemValues;
 import com.onesmock.dao.SystemValues.SystemValuesDao;
@@ -83,7 +86,7 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
 
         list = new ArrayList<>();
 
-        HttpProxyCacheServer proxy = Application.getProxy(getApplicationContext());
+        HttpProxyCacheServer proxy = Application.getProxy(this);
        // String proxyUrl = proxy.getProxyUrl("http://www.nj-lsj.net/data/app.mp4");
         List list0= videoDao.dbQueryAll();
 
@@ -173,6 +176,9 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
         Log.i(TAG, "开机自启动处理");
         //activity管理信息
 
+        NetMessFromPhp.getJavaAll(context);//JAVA
+        NetMessFromPhp.getVideo(context);
+
 
         AppManager.getInstance().addActivity(this);
         FileUtils.getInstance(BaseActivity.context).copyAssetsToSD("baiduTTS", "/baiduTTS");//复制百度的资源到Sdcard下面
@@ -181,6 +187,8 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
 
         isBaisuTTs = BaseActivity.isNetworkAvailable(MainActivity.this);//是否联网
         //地址的变动
+
+
         initData();
         initView();
         initPermission();
@@ -207,18 +215,10 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
 
         Log.i(TAG, "onCreate: "+getLocalVersionName()+"-----------------------"+getLocalVersion());
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                initTTs();
-            }
-        });
 
         TwoDimensionalCode = (ImageView) findViewById(R.id.TwoDimensionalCode);
         //首页二维码图片
-
-
-
+        //进行openfire登陆
         if (/*!MyXMPPTCPConnection.IsOnline && b && */!xmppConnect.binitOpenfire) {
             Log.i(TAG, "--------------------" + MyXMPPTCPConnection.IsOnline + xmppConnect.binitOpenfire);
             xmppConnect.binitOpenfire = true;
@@ -228,11 +228,10 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
                     xmppConnect.xmppLogin(xmppConnect.getuserName());
                 }
             }).start();
-        }
-        ;
-
+        };
+            //定时添加好友 确保在线
         if (BaseActivity.isAddFriend) {
-            //定时器之启动一次
+            //定时器只启动一次
         } else {
             new Timer().schedule(new TimerTask() {
                 @Override
@@ -242,6 +241,13 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
 
                     if(BaseActivity.isNetworkAvailable(MainActivity.this)){
 
+                        if(/*BaseActivity.isNetworkAvailable(MainActivity.this)&&*/initBaisuTTs){
+
+                            Log.i(TAG, "run: 不需要初始化网络信息");
+                        }else{
+                            MainActivity.initTTs();
+                            Log.i(TAG, "run: 判断网络，延迟初始化语音信息");
+                        }
 
                     }else{
                         Log.i(TAG, "run: 没有网络，无法初始化语音信息！");
@@ -251,25 +257,20 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
             }, 10 * 1000, 30 * 1000);
             isAddFriend = true;
         }
+        //延迟初始化语音信息   不需要延迟 已经延迟过了
         new Timer().schedule(new TimerTask() {
             //
             @Override
             public void run() {
 
-                if(/*BaseActivity.isNetworkAvailable(MainActivity.this)&&*/initBaisuTTs){
 
-                    Log.i(TAG, "run: 不需要初始化网络信息");
-                }else{
-                    MainActivity.initTTs();
-                    Log.i(TAG, "run: 判断网络，延迟初始化语音信息");
-                }
 
             }
         },  10*1000);
 
 
         File f = new File( xmppConnect.FILE_PATH +"/app.JEPG");
-        //二维码信息
+        //二维码信息。初始化二维码信息
         if(f.exists()){
             Message message = Message.obtain();
             message.what = ConstantValue.GetBitmapTwoDimensionalCode;
@@ -336,13 +337,14 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
             switch (msg.what){
                 case ConstantValue.XMPP_MSG_CONNECT_INFO:
                     xmppConnect.xmppLogin(xmppConnect.getuserName());
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
 
+                    if(/*BaseActivity.isNetworkAvailable(MainActivity.this)&&*/initBaisuTTs){
+
+                        Log.i(TAG, "run: 不需要初始化网络信息");
+                    }else{
+                        MainActivity.initTTs();
+                        Log.i(TAG, "run: 判断网络，延迟初始化语音信息");
                     }
-                    });
-                    MainActivity.initTTs();
 
                 break;
 
@@ -677,7 +679,7 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
         // 设置合成的语调，0-9 ，默认 5
         mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_PITCH, "5");
 
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_MIX_MODE, SpeechSynthesizer.MIX_MODE_DEFAULT);
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_MIX_MODE, SpeechSynthesizer.MIX_MODE_HIGH_SPEED_NETWORK);
         // 该参数设置为TtsMode.MIX生效。即纯在线模式不生效。
         // MIX_MODE_DEFAULT 默认 ，wifi状态下使用在线，非wifi离线。在线状态下，请求超时6s自动转离线
         // MIX_MODE_HIGH_SPEED_SYNTHESIZE_WIFI wifi状态下使用在线，非wifi离线。在线状态下， 请求超时1.2s自动转离线
@@ -695,7 +697,7 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
             params.put(SpeechSynthesizer.PARAM_TTS_SPEECH_MODEL_FILE, ConstantValue.baiduMODEL_FILENAME);
         }
         InitConfig initConfig =  new InitConfig(ConstantValue.baiduAppId, ConstantValue.baiduAppKey, ConstantValue.baiduSecretKey, ConstantValue.baiduTtsMode, params, listener);
-      /*  AutoCheck.getInstance(BaseActivity.context).check(initConfig, new Handler() {
+/*       AutoCheck.getInstance(BaseActivity.context).check(initConfig, new Handler() {
             @Override
               //开新线程检查，成功后回调
             public void handleMessage(Message msg) {
@@ -710,8 +712,8 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
                 }
             }
 
-        });
-*/
+        });*/
+
         // 6. 初始化
         result = mSpeechSynthesizer.initTts(ConstantValue.baiduTtsMode);
         checkResult(result, "initTts");
@@ -786,7 +788,10 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
                 }
             });*/
             return;
-        }/*else{
+        }
+
+
+        /*else{
             mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER, "4");
             // 设置合成的音量，0-9 ，默认 5
             mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_VOLUME, "9");
@@ -802,6 +807,7 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
        // print("合成并播放 按钮已经点击");
         Log.i(TAG, "speak: 合成并播放 按钮已经点击");
         checkResult(result, "speak");
+
     }
 
     private void stop() {
@@ -890,5 +896,17 @@ public class MainActivity extends BaseActivity implements OnBannerListener {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         // 此处为android 6.0以上动态授权的回调，用户自行实现。
+    }
+
+
+
+
+    public static void toNewAdv(String equipmentbase){
+        //当产品出货的时候 ， 用来跳转页面
+
+        Intent intent = new Intent(context, showProductActivity.class);
+        intent.putExtra("equipmentbase", equipmentbase);
+        context.startActivity(intent);
+
     }
 }

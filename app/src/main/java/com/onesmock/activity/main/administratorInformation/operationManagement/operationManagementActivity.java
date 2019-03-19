@@ -111,17 +111,20 @@ public class operationManagementActivity  extends BaseActivityO {
             tableLayout1.setStretchAllColumns(true);//自动宽度，使表格在横向占据100%
             //打印表头
             TableRow tableRow = new TableRow(this);//新建一行
+            tableRow.setBackgroundColor(Color.parseColor("#2f7d67"));
 
             TextView textView = new TextView(this);//新建一个TextView
             textView.setTextSize(25);//设置字体
             textView.setText("编号");
             textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);//放到行中，自动增加一个单元格
 
             textView = new TextView(this);
             textView.setTextSize(25);
             textView.setText("现有产品");
             textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
 
@@ -129,25 +132,21 @@ public class operationManagementActivity  extends BaseActivityO {
             textView.setTextSize(25);
             textView.setText("待更新");
             textView.setGravity(Gravity.CENTER);
+        textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
             textView = new TextView(this);
             textView.setTextSize(25);
             textView.setText("操作");
             textView.setGravity(Gravity.CENTER);
+        textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
             textView = new TextView(this);
             textView.setTextSize(25);
             textView.setText("操作");
             textView.setGravity(Gravity.CENTER);
-            tableRow.addView(textView);
-
-
-            textView = new TextView(this);
-            textView.setTextSize(25);
-            textView.setText("操作");
-            textView.setGravity(Gravity.CENTER);
+        textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
 
@@ -155,6 +154,15 @@ public class operationManagementActivity  extends BaseActivityO {
             textView.setTextSize(25);
             textView.setText("操作");
             textView.setGravity(Gravity.CENTER);
+        textView.setBackgroundColor(Color.parseColor("#2f7d67"));
+            tableRow.addView(textView);
+
+
+            textView = new TextView(this);
+            textView.setTextSize(25);
+            textView.setText("操作");
+            textView.setGravity(Gravity.CENTER);
+        textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
 
@@ -170,11 +178,13 @@ public class operationManagementActivity  extends BaseActivityO {
                 Product product = productList.get(i);
                 // 一个用户占据一行
                 tableRow = new TableRow(this);
+                tableRow.setBackgroundColor(Color.parseColor("#2f7d67"));
 
                 textView = new TextView(this);
                 textView.setTextSize(25);//货架名称
                 textView.setText(String.valueOf(i+1));
                 tableRow.addView(textView);
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                 textView.setGravity(Gravity.CENTER);
 
 
@@ -182,6 +192,7 @@ public class operationManagementActivity  extends BaseActivityO {
                     textView.setTextSize(25);//货架产品
                     textView.setText(product.getProductName());
                     tableRow.addView(textView);
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                     textView.setGravity(Gravity.CENTER);
 
 
@@ -191,6 +202,7 @@ public class operationManagementActivity  extends BaseActivityO {
                     textView.setTextSize(25);//平台更新
                     textView.setText(productList.get(i).getPrematchProductname());
                     tableRow.addView(textView);
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                     textView.setGravity(Gravity.CENTER);
 
 

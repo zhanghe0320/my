@@ -234,7 +234,7 @@ public class ConstantValue {
 
    public static final String javaUrl = "192.168.1.113:8080";//java  平台地址
    public static final String javaRecordMsg = "/OSS/recordMsg.do";//java平台返回的信息
-   public static final String javaMechineShelfList = "/OSS/mechineShelfList.do";//获取货架信息设备号、货架号、现有产品、现有产品照片、预配产品、预配产品照片）
+   public static final String javaMechineShelfList = "/OSS/mechineShelfList.do";//获取货架信息设备号、货架号、现有产品、现有产品照片、预配产品、预配产品照片  ）
    public static final String javaRecordMsgOpen = "/OSS/recordMsgOpen.do";//java  反馈开门信息
    public static final String javaRecordMsgClose = "/OSS/recordMsgClose.do";//java 反馈关门信息
    public static final String javaReadyProductList = "/OSS/readyProductList.do";//java 反馈预配信息，修改配货信息

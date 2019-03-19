@@ -19,6 +19,38 @@ public class Product {
     private String prematchImgurl;//预配
     private String prematchProductname;//预配
 
+    private String productMess;//产品介绍信息
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productDaysum='" + productDaysum + '\'' +
+                ", productTotal='" + productTotal + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", CreatedTime=" + CreatedTime +
+                ", equipmenthost='" + equipmenthost + '\'' +
+                ", equipmentbase='" + equipmentbase + '\'' +
+                ", prematchImgurl='" + prematchImgurl + '\'' +
+                ", prematchProductname='" + prematchProductname + '\'' +
+                ", productMess='" + productMess + '\'' +
+                '}';
+    }
+
+    public String getProductMess() {
+        return productMess;
+    }
+
+    public void setProductMess(String productMess) {
+        this.productMess = productMess;
+    }
+
+
+
+
+    //需要现有的equipmentbase 的 具体信息 产品详情信息，  图片，
+
 
     public String getPrematchImgurl() {
         return prematchImgurl;

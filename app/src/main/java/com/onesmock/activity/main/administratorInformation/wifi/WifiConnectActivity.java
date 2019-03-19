@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import com.onesmock.R;
 import com.onesmock.Util.DBUtil.ConstantValue;
 import com.onesmock.activity.CountTimer.BackMain;
 import com.onesmock.activity.base.AppManager;
+import com.onesmock.activity.base.BaseActivity;
 import com.onesmock.activity.base.BaseActivityO;
 import com.onesmock.activity.main.MainActivity;
 
@@ -44,12 +46,13 @@ public class WifiConnectActivity extends BaseActivityO implements OnClickListene
 			switch (msg.what) {
 			case 0:
 
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
+				if(/*BaseActivity.isNetworkAvailable(MainActivity.this)&&*/BaseActivity.initBaisuTTs){
 
-					}
-				});	MainActivity.initTTs();
+					Log.i(TAG, "run: 不需要初始化网络信息");
+				}else{
+					MainActivity.initTTs();
+					Log.i(TAG, "run: 判断网络，延迟初始化语音信息");
+				}
 
 				showToastView("WIFI连接成功!");
 				break;

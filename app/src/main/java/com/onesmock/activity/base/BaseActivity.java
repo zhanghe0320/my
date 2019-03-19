@@ -47,6 +47,8 @@ import com.onesmock.dao.product.Product;
 import com.onesmock.dao.product.ProductDao;
 import com.onesmock.Util.CloseBarUtil.CloseBarUtil;
 import com.onesmock.dao.messfromPHP.MessFromBase;
+import com.onesmock.dao.product.ProductMess;
+import com.onesmock.dao.product.ProductMessDao;
 import com.onesmock.dao.video.Video;
 import com.onesmock.dao.video.VideoDao;
 
@@ -55,6 +57,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -95,6 +98,7 @@ public class BaseActivity extends  SerialPortActivity{
     public static BackMain backMain;
     public static AdvertisementDao advertisementDao;
     public static VideoDao videoDao;
+    public static ProductMessDao productMessDao;
 
     public static SystemValues systemValues;
     public static Equipment equipment;
@@ -104,6 +108,7 @@ public class BaseActivity extends  SerialPortActivity{
     public static TextView view;
     public static Advertisement advertisement;
     public static Video video;
+    public static ProductMess productMess;
 
 
     /**
@@ -161,6 +166,7 @@ public class BaseActivity extends  SerialPortActivity{
         productDao = new ProductDao(context);
         advertisementDao = new AdvertisementDao(context);
         videoDao = new VideoDao(context);
+        productMessDao = new ProductMessDao(context);
 
 
 
@@ -170,6 +176,7 @@ public class BaseActivity extends  SerialPortActivity{
         author = new Author();
         advertisement = new Advertisement();
         video = new Video();
+        productMess = new ProductMess();
 
         bundle= new Bundle();
         bundle.putString(ConstantValue.employeeId,"0");
@@ -180,8 +187,8 @@ public class BaseActivity extends  SerialPortActivity{
         //NetMessFromPhp.getAllMessFromPhp(context);//PHPH
 
 
-        NetMessFromPhp.getJavaAll(context);//JAVA
-        NetMessFromPhp.getVideo(context);
+      //  NetMessFromPhp.getJavaAll(context);//JAVA
+       // NetMessFromPhp.getVideo(context);
         // 添加Activity到堆栈
         Application.getInstance().addActivity(this);
        // loadingDialog(this, "努力加载中...");
@@ -868,6 +875,36 @@ public class BaseActivity extends  SerialPortActivity{
                                                     myJsonObject = new JSONObject(s);
                                                     String code = myJsonObject.getString(ConstantValue.code);
                                                     String msg = myJsonObject.getString(ConstantValue.msg);
+                                                    //上报缺货信息成功    成功后回码给单片机
+                                                    StringBuffer stringBuffer= new StringBuffer();
+                                                    stringBuffer.append(ConstantValue.messageHeaderSendToMachine);//55  消息头
+                                                    stringBuffer.append(ConstantValue.outOfStockYes);//01  消息//01  消息 指令信息
+                                                    stringBuffer.append(ConstantValue.messageLength);//  44    长度  发送的消息应当不进行16进制转换，发送的数据是十进制的数据
+
+
+
+                                                    //  String 转为byte   byte转为HEX    随后发送
+                                                    long longNum = Long.parseLong( messFromBase.getEquipment_base());
+                                                    Log.i(TAG, "getByteMess: 测试的long值为：" + longNum);
+                                                    byte[] long2Bytes = byteUtil.long2Bytes(longNum);
+                                                    byteUtil.BinaryToHexString(long2Bytes);
+                                                    stringBuffer.append(byteUtil.BinaryToHexString(long2Bytes));//0000000000000001        01 0001 0000 0000 0001
+
+
+                                                    //  String 转为byte   byte转为HEX    随后发送
+                                                    longNum = Long.parseLong( messFromBase.getEquipment_host());
+                                                    Log.i(TAG, "getByteMess: 测试的long值为：" + longNum);
+                                                    long2Bytes = byteUtil.long2Bytes(longNum);
+                                                    byteUtil.BinaryToHexString(long2Bytes);
+                                                    stringBuffer.append( byteUtil.BinaryToHexString(long2Bytes));//0000000000000001     2+2+2+16+16+2=40   02 0000 0000 00000001
+
+                                                    stringBuffer.append(ConstantValue.checkoutBit);//校验位   55 01 0b 00 00 00 00 00 00 00 01 0000000000000001 00
+                                                    if(stringBuffer.toString().length() ==40){
+                                                        byte[] bytes = byteUtil.hexStringToByteArray(stringBuffer.toString());
+                                                        BaseActivity.SendMessage(bytes);
+                                                    }else {
+
+                                                    }
 
                                                 } catch (Exception e) {
                                                 }
@@ -931,6 +968,37 @@ public class BaseActivity extends  SerialPortActivity{
                                                         productDao.dbUpdateProductAddTime( equipment.getEquipmentbase());
                                                         Log.i(TAG, "onResponse: 添加货物成功");
                                                         showToastView("添加货物成功!!");
+
+                                                        //上报加货信息成功   成功后回码给单片机
+                                                        StringBuffer stringBuffer= new StringBuffer();
+                                                        stringBuffer.append(ConstantValue.messageHeaderSendToMachine);//55  消息头
+                                                        stringBuffer.append(ConstantValue.outOfStockYes);//01  消息//01  消息 指令信息
+                                                        stringBuffer.append(ConstantValue.messageLength);//  44    长度  发送的消息应当不进行16进制转换，发送的数据是十进制的数据
+
+
+
+                                                        //  String 转为byte   byte转为HEX    随后发送
+                                                        long longNum = Long.parseLong( messFromBase.getEquipment_base());
+                                                        Log.i(TAG, "getByteMess: 测试的long值为：" + longNum);
+                                                        byte[] long2Bytes = byteUtil.long2Bytes(longNum);
+                                                        byteUtil.BinaryToHexString(long2Bytes);
+                                                        stringBuffer.append(byteUtil.BinaryToHexString(long2Bytes));//0000000000000001        01 0001 0000 0000 0001
+
+
+                                                        //  String 转为byte   byte转为HEX    随后发送
+                                                        longNum = Long.parseLong( messFromBase.getEquipment_host());
+                                                        Log.i(TAG, "getByteMess: 测试的long值为：" + longNum);
+                                                        long2Bytes = byteUtil.long2Bytes(longNum);
+                                                        byteUtil.BinaryToHexString(long2Bytes);
+                                                        stringBuffer.append( byteUtil.BinaryToHexString(long2Bytes));//0000000000000001     2+2+2+16+16+2=40   02 0000 0000 00000001
+
+                                                        stringBuffer.append(ConstantValue.checkoutBit);//校验位   55 01 0b 00 00 00 00 00 00 00 01 0000000000000001 00
+                                                        if(stringBuffer.toString().length() ==40){
+                                                            byte[] bytes = byteUtil.hexStringToByteArray(stringBuffer.toString());
+                                                            BaseActivity.SendMessage(bytes);
+                                                        }else {
+
+                                                        }
 
                                                     } else if (ConstantValue.PHP_Back_Fail == code) {
                                                         showToastView(msg);

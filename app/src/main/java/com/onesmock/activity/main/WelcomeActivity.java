@@ -230,7 +230,7 @@ public class WelcomeActivity extends BaseActivity {
             SystemValuesDao systemValuesDao = new SystemValuesDao(context);
             SystemValues systemValues = systemValuesDao.dbQueryOneByID(ConstantValue.codeValue0);
             mUtils.connectWifiTest(systemValues.getName(),systemValues.getValue());
-            Log.i(TAG, "initListViewData: "+systemValues.getValue()+systemValues.getName());
+            Log.i(TAG, "initListViewData: "+systemValues.getValue()+"--------"+systemValues.getName());
         }
        /* Message msg = Message.obtain();
         msg.what = MSG_LOAD_GRID;

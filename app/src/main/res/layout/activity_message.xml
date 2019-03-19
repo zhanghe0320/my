@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#2f7d67">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical"
+        android:background="#2f7d67"></LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -19,20 +22,23 @@
         android:gravity="center"
         android:text="@string/testActivity"
         android:textColor="#000000"
-        android:textSize="@dimen/title_text_size" />
+        android:textSize="@dimen/title_text_size"
+        android:background="#2f7d67"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#2f7d67">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:background="#2f7d67">
 
             <TextView
                 android:layout_width="0dp"
@@ -41,13 +47,14 @@
                 android:gravity="center"
                 android:text="@string/selectEquipment"
                 android:textColor="#000000"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:background="#2f7d67"/>
 
             <Spinner
                 android:id="@+id/message_equipment_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="0.5"
                 android:background="@color/aqua" />
         </LinearLayout>
 
@@ -56,7 +63,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:background="#2f7d67">
 
             <TextView
                 android:layout_width="0dp"
@@ -65,13 +73,14 @@
                 android:gravity="center"
                 android:text="@string/selectMessage"
                 android:textColor="#000000"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:background="#2f7d67"/>
 
             <Spinner
                 android:id="@+id/message_equipment_mess"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="0.5"
                 android:background="@color/aqua" />
         </LinearLayout>
 
@@ -81,14 +90,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_weight="3"
+        android:background="#2f7d67"
+        android:orientation="vertical"
+        android:weightSum="4">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="#2f7d67"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -109,9 +120,34 @@
 -->
                 <TextView
                     style="@style/home_text_view"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
                     android:text="@string/sendMessage"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:background="#2f7d67"
+
+                android:clickable="true"
+              >
+
+                <!--    <ImageView
+                    android:id="@+id/main_invoice"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="30dp" />
+-->
+                <TextView
+                    style="@style/home_text_view"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </RelativeLayout>
@@ -133,9 +169,92 @@
 -->
                 <TextView
                     style="@style/home_text_view"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
                     android:text="@string/back"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="#2f7d67"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/addvoice"
+                android:clickable="true"
+                android:onClick="addvoice">
+
+                <!--    <ImageView
+                    android:id="@+id/main_invoice"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="30dp" />
+-->
+                <TextView
+                    style="@style/home_text_view"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="添加音量"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/voice"
+                android:clickable="true"
+                android:onClick="voice_speak">
+
+                <!--    <ImageView
+                    android:id="@+id/main_invoice"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="30dp" />
+-->
+                <TextView
+                    style="@style/home_text_view"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/voice"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/subvoice"
+                android:clickable="true"
+                android:onClick="subvoice">
+
+                <!--    <ImageView
+                    android:id="@+id/main_invoice"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="30dp" />
+-->
+                <TextView
+                    style="@style/home_text_view"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="降低音量"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </RelativeLayout>

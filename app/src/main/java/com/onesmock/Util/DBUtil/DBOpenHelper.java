@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.io.File;
-import java.util.UUID;
 
 import android_serialport_api.SerialPortFinder;
 
@@ -28,7 +27,10 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
     private static SharedPreferences sp ;
     private static String DBname= "njlsj.db";
 
-    private static final int DATABASE_VERSION = 2;//现在的版本
+    private static final int DATABASE_VERSION = 2;//用来测试的时候的数据库版本
+    //大部分版本号为 2
+    //初始数据库信息为1
+    //数据库版本参数不正确  会导致全部数据信息清除
 
 
     public synchronized static DBOpenHelper getInstance(Context context) {//获取DBOpenHelper，没有就生成，有直接返回
@@ -36,7 +38,6 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
             dbOpenHelper = new DBOpenHelper(context,DBname, null, 1);
         }/**
          myDatabase =SQLiteDatabase.openDatabase(myPath,null,SQLiteDatabase.NO_LOCALIZED_COLLATORS |SQLiteDatabase.OPEN_READWRITE);
-
          */
 
         return dbOpenHelper;
@@ -54,7 +55,7 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
     private static boolean mainTmpDirSet = false;
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        if (!mainTmpDirSet) {//设置临时文件
+        if (!mainTmpDirSet) {//设置临时文件  存放数据库信息
             boolean rs = new File("/data/data/com.onesmock/databases/main").mkdir();
             Log.d("ahang", rs + "");
             super.getReadableDatabase().execSQL("PRAGMA temp_store_directory = '/data/data/com.onesmock/databases/main'");
@@ -109,7 +110,9 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
                     "equipmenthost VARCHAR(255) NOT NULL," +
                     "equipmentbase VARCHAR(255) NOT NULL," +
                     "prematchImgurl VARCHAR(255)," +
-                    "prematchProductname VARCHAR(255)" +
+                    "prematchProductname VARCHAR(255)," +
+                    "productMess VARCHAR(255)" +// 产品介绍的文字信息
+
                     ")";
 
     private final String t_systemvalues =
@@ -130,10 +133,20 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
                     "equipmentid VARCHAR(255) ," +
                     "CreatedTime Long  " +//CURRENT_TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP
                     ")";
+
+
+    private final String t_productmess =
+            "create table if not exists t_productmess (" +
+                    "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                    "equipmentbase VARCHAR(255) NOT NULL," +
+                    "imgUrl VARCHAR(255)," +
+                    "videoUrl VARCHAR(255)," +
+                    "CreatedTime Long  " +//CURRENT_TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP
+                    ")";
     @Override
     public void onCreate(SQLiteDatabase sqliteDatabase) {
 
-        final int FIRST_DATABASE_VERSION = 1;//第一版本数据库大小
+        final int FIRST_DATABASE_VERSION = 1;//     第一版本数据库版本号   对应java版本还没有出货，需要重新修改
 
     /*    String t_advertisement = "create table if not exists t_advertisement(" +
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
@@ -225,9 +238,14 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
         sqliteDatabase.execSQL(t_systemvalues);
         sqliteDatabase.execSQL(t_video);
         sqliteDatabase.execSQL(t_equipment);
-        sqliteDatabase.execSQL(t_product);
+       // sqliteDatabase.execSQL(t_product);
         sqliteDatabase.execSQL(t_author);
         sqliteDatabase.execSQL(t_advertisement);
+
+        sqliteDatabase.execSQL(t_video);//升级数据库，建立新的表信息
+        sqliteDatabase.execSQL(t_productmess);//产品的详情信息
+        sqliteDatabase.execSQL(t_product);//产品的信息
+
     /*           if (isTableExist) {
             Log.i(TAG, "onCreate: 创建表格");
             sqliteDatabase.execSQL(t_advertisement);
@@ -270,6 +288,7 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
             sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('超级密码','888888','020000000000000001','')");
             sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('网络地址','www.xxxx.com','020000000000000001','')");
             sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('wifi','wifi设置','020000000000000001','')");
+            sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values ('音量控制','音量控制','020000000000000001','')");
 
             Log.i(TAG + "插入数据3", "");
            // sqliteDatabase.execSQL("insert into t_author (author_name,author_phone,equipmenthost,CreatedTime)values ('张三', '12345678901', '0000000000000001','')");
@@ -279,7 +298,7 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
             // 执行这条无返回值的sql语句
             // sqliteDatabase.execSQL(t_equipment_sql, bindArgs);
 
-            // String[] items = mSerialPortFinder.getAllDevicesPath();
+            // String[] items = 7uj
 
             String sql=("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values (?,?,?,?)");
             sqliteDatabase.execSQL("insert into t_systemvalues(name,value,equipmenthost,CreatedTime) values  ('串口号码', '/dev/ttyS3', '020000000000000001', '')");
@@ -292,18 +311,15 @@ public class   DBOpenHelper extends SQLiteOpenHelper {
 
         }
 
-        onUpgrade(sqliteDatabase, FIRST_DATABASE_VERSION, DATABASE_VERSION);//数据库升级信息   初始版本，现在版本
+        onUpgrade(sqliteDatabase, FIRST_DATABASE_VERSION, DATABASE_VERSION);//数据库升级信息   初始版本，现在版本，sql语句信息
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {//数据库升级的方法 在这里进行操作
         //这里是更新数据库版本时所触发的方法
        // db.execSQL("drop table if exists Book");
        // db.execSQL("drop table if exists Category");    // 增加一个表,创建表语句.
-      //  onCreate(db);
-
-
-        db.execSQL(t_video);//升级数据库，建立新的表信息
+      //  onCreate(db);//
 
     }
 

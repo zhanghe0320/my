@@ -2,6 +2,7 @@ package com.onesmock.activity.main.administratorInformation.shelvesManagement;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -86,6 +87,7 @@ public class shelvesManagementActivity extends BaseActivityO {
             textView.setTextSize(25);//设置字体
             textView.setText("设备序号");
             textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);//放到行中，自动增加一个单元格
 
             textView = new TextView(this);
@@ -93,6 +95,7 @@ public class shelvesManagementActivity extends BaseActivityO {
             textView.setTextSize(25);
             textView.setText("设备编号");
             textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
 
@@ -102,6 +105,7 @@ public class shelvesManagementActivity extends BaseActivityO {
             textView.setTextSize(24);
             textView.setText("操作");
             textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
             tableLayout1.addView(tableRow, new TableLayout.LayoutParams(
@@ -122,12 +126,14 @@ public class shelvesManagementActivity extends BaseActivityO {
                 textView.setTextSize(25);//设备名称
                 textView.setText(equipment.getEquipmentName());
                 tableRow.addView(textView);
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                 textView.setGravity(Gravity.CENTER);
 
                 textView = new TextView(this);
                 textView.setTextSize(25);//设备编号
                 textView.setText(equipment.getEquipmentbase());
                 tableRow.addView(textView);
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                 textView.setGravity(Gravity.CENTER);
 
               //  final Product product =productList.get(i);
@@ -140,6 +146,7 @@ public class shelvesManagementActivity extends BaseActivityO {
                     buttonDelete.setEnabled(false);
 
                 }
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                 textView.setGravity(Gravity.CENTER);
 
 

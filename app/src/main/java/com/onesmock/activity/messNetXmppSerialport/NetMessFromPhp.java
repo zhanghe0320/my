@@ -4,17 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.onesmock.Util.DBUtil.ConstantValue;
+import com.onesmock.activity.base.BaseActivity;
 import com.onesmock.activity.main.MainActivity;
 import com.onesmock.dao.SystemValues.SystemValuesDao;
-import com.onesmock.dao.advertisement.Advertisement;
 import com.onesmock.dao.advertisement.AdvertisementDao;
-import com.onesmock.dao.author.Author;
 import com.onesmock.dao.author.AuthorDao;
-import com.onesmock.dao.equipment.Equipment;
 import com.onesmock.dao.equipment.EquipmentDao;
 import com.onesmock.dao.product.ProductDao;
 import com.onesmock.dao.video.Video;
@@ -25,13 +21,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -139,6 +131,7 @@ public class NetMessFromPhp {
 */
 
 
+
                     ResponseBody responseBody = response.body();
                     String s = responseBody.string();
                     // System.out.println(response.body().string());
@@ -168,15 +161,16 @@ public class NetMessFromPhp {
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                String equipmentId = jsonObject.getString("equipmentId");
-                                String readyProductName = jsonObject.getString("readyProductName");
-                                String nowProductName = jsonObject.getString("nowProductName");
-                                String nowPhotoName = jsonObject.getString("nowPhotoName");
-                                String readyPhotoName = jsonObject.getString("readyPhotoName");
+                                String equipmentId = jsonObject.getString("equipmentId");//设备号
+                                String readyProductName = jsonObject.getString("readyProductName");//预配图片
+                                String nowProductName = jsonObject.getString("nowProductName");//现有产品
+                                String nowPhotoName = jsonObject.getString("nowPhotoName");//现有图片
+                                String readyPhotoName = jsonObject.getString("readyPhotoName");//预配产品
                                 String readyId = jsonObject.getString("readyId");
-                                String shelfId = jsonObject.getString("shelfId");
+                                String shelfId = jsonObject.getString("shelfId");//设备货架
                                 String nowId = jsonObject.getString("nowId");
                                 String assetId = jsonObject.getString("assetId");
+                                String productMess  = jsonObject.getString("descr");//产品描述
                                 //String readyProductName = jsonObject.getString("readyProductName");
 
                                 ArrayList arrayList = equipmentDao.dbQueryAll();
@@ -198,10 +192,10 @@ public class NetMessFromPhp {
 
 
                                 if(null ==nowProductName || "".equals( nowProductName)){
-                                    productDao.dbUpdateProductNow(shelfId, equipmentId, null, null);
+                                    productDao.dbUpdateProductNow(shelfId, equipmentId, null, null,null);
                                     Log.i(TAG, "onResponse: 插入数据");
                                 }else{
-                                    productDao.dbUpdateProductNow(shelfId, equipmentId, nowPhotoName,nowProductName);
+                                    productDao.dbUpdateProductNow(shelfId, equipmentId, nowPhotoName,nowProductName,productMess);
                                 }
 
                             }
@@ -261,7 +255,7 @@ public class NetMessFromPhp {
     public static void getVideo(Context context) {
         getInstance(context);
 
-        videoDao.dbDeleteAllVideo(xmppConnect.getuserName());
+
         // productDao.dbDeleteAllProduct();
         //  equipmentDao.dbDeleteAllEquipment();
         //advertisementDao.dbDeleteAllAdvertisement();
@@ -296,7 +290,7 @@ public class NetMessFromPhp {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() == ConstantValue.Okhttp_Back_Success) {
-
+                    videoDao.dbDeleteAllVideo(xmppConnect.getuserName());
                    // videoDao.dbDeleteAllVideo(xmppConnect.getuserName());
 
                     ResponseBody responseBody = response.body();
@@ -355,6 +349,10 @@ public class NetMessFromPhp {
                 }
             }
         });
+
+
+
+
     }
 
 

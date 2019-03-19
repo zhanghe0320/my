@@ -102,10 +102,10 @@ public class VideoDao {
     // 修改   使用 修改主机所有辅助机器的设备号码
     public void dbDeleteAllVideo(String equipmenthost) {
         // sqliteDatabase = dbOpenHelper.getWritableDatabase();
-        String sql = "Delete  from t_video where equipmenthost != ?";
+        String sql = "Delete  from t_video";
         Log.i(TAG, "删除所有视频：" + sql);
         Object bindArgs[] = new Object[]{equipmenthost};
-        dbOpenHelper.getWritableDatabase().execSQL(sql, bindArgs);
+        dbOpenHelper.getWritableDatabase().execSQL(sql);
 
     }
 

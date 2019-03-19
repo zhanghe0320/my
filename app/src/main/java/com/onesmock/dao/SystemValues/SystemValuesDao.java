@@ -180,9 +180,19 @@ public class SystemValuesDao {
 
     // 更新厂家设置信息  使用中
     public void dbUpdateValue(String value, Long CreatedTime, int id ) {
-        //   sqliteDatabase = dbOpenHelper.getWritableDatabase();
-        String sql = "update t_systemvalues set value=?,CreatedTime =?  where id=?";
-        Object bindArgs[] = new Object[]{value, CreatedTime, id};
+        //   sqliteDatabase = dbOpenHelper.getWritableDatabase();.
+        String sql = null;
+        Object bindArgs[];
+        if(null == value || "" .equals(value)){
+            bindArgs= new Object[]{CreatedTime, id};
+            sql = "update t_systemvalues set value='',CreatedTime =?  where id=?";
+
+        }else{
+            bindArgs= new Object[]{value, CreatedTime, id};
+            sql = "update t_systemvalues set value=?,CreatedTime =?  where id=?";
+        }
+
+
         dbOpenHelper.getWritableDatabase().execSQL(sql, bindArgs);
     }
 

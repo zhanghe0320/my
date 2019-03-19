@@ -266,14 +266,26 @@ public class WifiSupport {
      * 返回level 等级
      */
     public static int getLevel(int level){
-        if (Math.abs(level) < 50) {
-            return 1;
-        } else if (Math.abs(level) < 75) {
-            return 2;
-        } else if (Math.abs(level) < 90) {
-            return 3;
-        } else {
+        if (Math.abs(level) < 10) {
+            return 10;
+        } else if (Math.abs(level) < 20) {
+            return 9;
+        } else if (Math.abs(level) < 30) {
+            return 8;
+        }else if (Math.abs(level) < 40) {
+            return 7;
+        }else if (Math.abs(level) < 50) {
+            return 6;
+        }else if (Math.abs(level) < 60) {
+            return 5;
+        }else if (Math.abs(level) < 70) {
             return 4;
+        } else if (Math.abs(level) < 80) {
+            return 3;
+        }else if (Math.abs(level) < 90) {
+            return 2;
+        }else {
+            return 1;
         }
     }
 

@@ -13,8 +13,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
-import com.onesmock.activity.base.BaseActivity;
-import com.onesmock.activity.main.MainActivity;
 import com.onesmock.activity.main.WelcomeActivity;
 
 import java.util.List;

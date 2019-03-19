@@ -73,17 +73,20 @@ public class manufactorSetActivity extends BaseActivityO {
             textView.setText("信息修改");
             textView.setGravity(Gravity.CENTER);
             tableRow.addView(textView);//放到行中，自动增加一个单元格
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             textView = new TextView(this);
 
             textView.setTextSize(30);
             textView.setText("相关参数");
             textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
             textView = new TextView(this);
             textView.setTextSize(30);
             textView.setText("操作");
             textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(Color.parseColor("#2f7d67"));
             tableRow.addView(textView);
 
 
@@ -105,19 +108,21 @@ public class manufactorSetActivity extends BaseActivityO {
                 textView.setTextSize(25);//设备名称
                 textView.setText(systemValues1.getName());
                 tableRow.addView(textView);
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                 textView.setGravity(Gravity.CENTER);
 
                 textView = new TextView(this);
                 textView.setTextSize(25);//设备编号
                 textView.setText(systemValues1.getValue());
                 tableRow.addView(textView);
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                 textView.setGravity(Gravity.CENTER);
 
                 Button button = new Button(this);
                 button.setText("修改");
                 button.setTextSize(25);//操作
                 button.setTextColor(Color.parseColor("#FF0000"));
-                button.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                textView.setBackgroundColor(Color.parseColor("#2f7d67"));
                 textView.setGravity(Gravity.CENTER);
                 textView.setId(systemValues1.getId());
                 button.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +130,7 @@ public class manufactorSetActivity extends BaseActivityO {
                     @Override
                     public void onClick(View view) {
                         //这样可以获取按钮的id
+
                         //修改密码，更新数据库之后，刷新一下这个TableActivity
 
                          if((ConstantValue.wifi).equals(systemValues1.getName())){

@@ -142,7 +142,7 @@ public abstract class SerialPortActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		context = this;
 		//strComNo = MyOperFun.ReadSharedPreferencesString(MyOperFun.KeyID.eComeNo,this);
-		mApplication = (Application) getApplication();
+		mApplication =  Application.getInstance();//公用一个application
 		Log.i(TAG, "onCreate: ********************getSerialPort");
 		new Thread(){
 			@Override

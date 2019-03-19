@@ -89,6 +89,8 @@ public class WifiLinkDialog extends Dialog implements View.OnClickListener{
                         password=password_edit.getText().toString();
                         cofirm_button.setClickable(true);
                     }
+                    BaseActivity.systemValuesDao.dbInsert(name,password,BaseActivity.systemValuesDao.dbQueryOneByName(ConstantValue.localNumber).getEquipmenthost(),ConstantValue.codeValue0);
+
                 }else if(capabilities.contains("WEP")){
                     if(password_edit.getText() == null && password_edit.getText().toString().length() < 8){
                         cofirm_button.setClickable(false);
@@ -96,6 +98,8 @@ public class WifiLinkDialog extends Dialog implements View.OnClickListener{
                         password=password_edit.getText().toString();
                         cofirm_button.setClickable(true);
                     }
+                    BaseActivity.systemValuesDao.dbInsert(name,password,BaseActivity.systemValuesDao.dbQueryOneByName(ConstantValue.localNumber).getEquipmenthost(),ConstantValue.codeValue0);
+
                 }
 
             }
@@ -106,7 +110,6 @@ public class WifiLinkDialog extends Dialog implements View.OnClickListener{
 
         });
 
-        BaseActivity.systemValuesDao.dbInsert(name,password,BaseActivity.systemValuesDao.dbQueryOneByName(ConstantValue.localNumber).getEquipmenthost(),ConstantValue.codeValue0);
 
     }
 

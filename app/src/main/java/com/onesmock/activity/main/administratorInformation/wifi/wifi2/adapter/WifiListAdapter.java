@@ -1,6 +1,7 @@
 package com.onesmock.activity.main.administratorInformation.wifi.wifi2.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,14 +48,14 @@ public class WifiListAdapter extends RecyclerView.Adapter<WifiListAdapter.MyView
         final WifiBean bean = resultList.get(position);
         holder.tvItemWifiName.setText(bean.getWifiName());
         holder.tvItemWifiStatus.setText("("+bean.getState()+")");
-
+        holder.tvItemWifiLevel.setText("["+bean.getLevel()+"]");
         //可以传递给adapter的数据都是经过处理的，已连接或者正在连接状态的wifi都是处于集合中的首位，所以可以写出如下判断
         if(position == 0  && (AppContants.WIFI_STATE_ON_CONNECTING.equals(bean.getState()) || AppContants.WIFI_STATE_CONNECT.equals(bean.getState()))){
-            holder.tvItemWifiName.setTextColor(mContext.getResources().getColor(R.color.blue));
-            holder.tvItemWifiStatus.setTextColor(mContext.getResources().getColor(R.color.blue));
+            holder.tvItemWifiName.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.tvItemWifiStatus.setTextColor(mContext.getResources().getColor(R.color.black));
         }else{
-            holder.tvItemWifiName.setTextColor(mContext.getResources().getColor(R.color.gray));
-            holder.tvItemWifiStatus.setTextColor(mContext.getResources().getColor(R.color.gray));
+            holder.tvItemWifiName.setTextColor(mContext.getResources().getColor(R.color.whitesmoke));
+            holder.tvItemWifiStatus.setTextColor(mContext.getResources().getColor(R.color.whitesmoke));
         }
 
         holder.itemview.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +83,20 @@ public class WifiListAdapter extends RecyclerView.Adapter<WifiListAdapter.MyView
     static class MyViewHolder extends RecyclerView.ViewHolder{
 
         View itemview;
-        TextView tvItemWifiName, tvItemWifiStatus;
+        TextView tvItemWifiName, tvItemWifiStatus,tvItemWifiLevel;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
             itemview = itemView;
             tvItemWifiName = (TextView) itemView.findViewById(R.id.tv_item_wifi_name);
             tvItemWifiStatus = (TextView) itemView.findViewById(R.id.tv_item_wifi_status);
+            tvItemWifiLevel = (TextView) itemView.findViewById(R.id.tv_item_wifi_level);
+
+            itemview.setBackgroundColor(Color.parseColor("#2f7d67"));
+            tvItemWifiName.setBackgroundColor(Color.parseColor("#2f7d67"));
+            tvItemWifiStatus.setBackgroundColor(Color.parseColor("#2f7d67"));
+            tvItemWifiLevel.setBackgroundColor(Color.parseColor("#2f7d67"));
         }
 
     }

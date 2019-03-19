@@ -1,40 +1,27 @@
 package com.onesmock.activity.main.administratorInformation.messageTest;
 
 
-import com.onesmock.activity.messNetXmppSerialport.xmppConnect;
-import android.app.AlertDialog;
+import com.onesmock.activity.main.MainActivity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.onesmock.activity.CountTimer.BackMain;
 import com.onesmock.activity.base.AppManager;
 import com.onesmock.activity.base.BaseActivity;
 import com.onesmock.activity.base.BaseActivityO;
 import com.onesmock.activity.main.MainActivity_main_systemCorrelation;
-import com.onesmock.activity.main.administratorInformation.author.AuthorActivity;
-import com.onesmock.activity.main.administratorInformation.netAddress.internetInformationActivity;
-import com.onesmock.activity.main.manufactor.manufactorSetActivity;
-import com.onesmock.activity.main.manufactor.manufactorSetActivityUpdate;
 import com.onesmock.dao.equipment.Equipment;
 import com.onesmock.dao.equipment.EquipmentDao;
 import com.onesmock.dao.product.ProductDao;
 import com.onesmock.Util.ByteDate.byteUtil;
 import com.onesmock.Util.DBUtil.ConstantValue;
-import com.onesmock.Util.serialPort.ConstantValueSerialPort;
-import com.onesmock.Util.serialPort.SerialPortActivity;
 import com.onesmock.R;
+
 
 /**
  * 测试使用的界面
@@ -51,6 +38,7 @@ public class messageActivity extends BaseActivityO {
     private Spinner mDevListMessage;//集合命令
 
     private EquipmentDao equipmentDao;
+    AudioMngHelper audioMngHelper;
 
     //回传主页处理信息
 
@@ -65,6 +53,7 @@ public class messageActivity extends BaseActivityO {
         mContext = this;
         equipmentDao =new EquipmentDao(this);
         productDao =new ProductDao(this);
+        audioMngHelper= new AudioMngHelper(context);
 
         mDevListEquipment= findViewById(R.id.message_equipment_name);
         String[] itemsEquipment =   equipmentDao.dbQueryAllEquipmengName();
@@ -94,6 +83,7 @@ public class messageActivity extends BaseActivityO {
        // ArrayAdapter<String> bb = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,itemsMess1); //第二个参数表示spinner没有展开前的UI类型
         arrayAdapteritemSpinner adapteritemSpinnerMess = new arrayAdapteritemSpinner(context,itemsMess1);
         mDevListMessage.setAdapter(adapteritemSpinnerMess); //之前已经通过Spinner spin = (Spinner) findViewById(R.id.spinner);来获取spin对象
+
         int iposition0 = adapteritemSpinnerMess.getPosition(itemsMess[0] );
         if(-1 == iposition){
             mDevListMessage.setSelection(0);
@@ -262,6 +252,27 @@ public class messageActivity extends BaseActivityO {
     }
 
 
+    //设备语音测试
+    public void voice_speak(View view) {
+
+        MainActivity.speak("语音测试，语音状态良好！");
+
+    }
+
+
+    //设备 增加音量
+    public void addvoice(View view) {
+
+        audioMngHelper.addVoice100();
+    }
+
+
+    //设备 降低音量
+    public void subvoice(View view) {
+
+        audioMngHelper.subVoice100();
+
+    }
     //设备 管理信息 返回上一个页面
     public void update_system_baseinfo(View view) {
 

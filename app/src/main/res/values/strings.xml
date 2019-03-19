@@ -31,6 +31,7 @@
     <string name="wifiActivity">wifi设置</string>
     <string name="testActivity">设备系统测试</string>
     <string name="back">返回</string>
+    <string name="voice">语音</string>
 
 
     <!-- manufactory-->

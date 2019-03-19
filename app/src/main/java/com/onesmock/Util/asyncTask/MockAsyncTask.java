@@ -105,7 +105,7 @@ public class MockAsyncTask implements Task {
                                                 bytesMess= null;
                                             }
                                         }
-                                    },  5500);
+                                    },  10000);//时间延长  因为机械结构改变  原先为5500
 
                             }
                             catch (Throwable e) {
